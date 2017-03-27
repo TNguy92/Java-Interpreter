@@ -16,12 +16,6 @@ public class Lexer
     //The lineNumber will be the index from which to start the scanning
     public Lexer(String source) throws FileNotFoundException
     {
-        if(source == null)
-        {
-            throw new IllegalArgumentException("Source is null");
-        }
-        else
-        {
             this.tokenList = new ArrayList();
             Scanner input = new Scanner(new File(source));
             int lineNumber = 0;
@@ -37,22 +31,17 @@ public class Lexer
 
             input.close();
             this.tokenList.add(new Token(TokenType.EOS_TOK, "EOS", lineNumber, 1));
-        }
     }
     //Does the real processing work to read line by line
     private void processLine(String line, int lineNumber)
     {
-        if(line == null)
+        if(line == null || lineNumber <= 0)
         {
-            throw new IllegalArgumentException("Line is null: Invalid");
-        }
-        else if(lineNumber <= 0)
-        {
-            throw new IllegalArgumentException("Line Number is less than 0: Invalid");
+            throw new IllegalArgumentException("Line is null or Line Number is less than 0: Invalid");
         }
         else
         {
-            for(int i = this.skipWhiteSpace(line, 0); i < line.length(); i = this.skipWhiteSpace(line, i))
+            for(int i = this.skipSpace(line, 0); i < line.length(); i = this.skipSpace(line, i))
             {
                 String lexeme = this.getLexeme(line, i);
                 TokenType tokenType = this.getTokenType(lexeme, lineNumber, i + 1);
@@ -61,9 +50,8 @@ public class Lexer
             }
         }
     }
-
     //Get the index of next non-whitespace
-    private int skipWhiteSpace(String line, int i)
+    private int skipSpace(String line, int i)
     {
 
         while ( i < line.length() && Character.isWhitespace(line.charAt(i)))
@@ -76,18 +64,14 @@ public class Lexer
     //Get the Lexeme
     private String getLexeme(String line, int i)
     {
-        if(line == null)
+        if(line == null || i < 0)
         {
-            throw new IllegalArgumentException("Line is null: Invalid");
-        }
-        else if(i < 0)
-        {
-            throw new IllegalArgumentException("Index is less than 0: Invalid");
+            throw new IllegalArgumentException("Line is null or Index is less than 0: Invalid");
         }
         else
         {
             int index;
-            //Go thr
+            //Go through each index of the length of the line and make sure it is a char then increment
             for (index = i; index < line.length() && !Character.isWhitespace(line.charAt(i)); ++i )
             {
                 ;
