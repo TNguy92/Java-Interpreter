@@ -7,70 +7,78 @@ public enum TokenType
     // in the assignment statement x = 1,
     // the string 1 is an integer literal indicating the value 1, while in the statement x = 0x10 the string 0x10 is an integer literal indicating the value 16,
     // which is represented by 10 in hexadecimal
-    LITERAL_INTEGER_TOK,
+    LITERAL_INTEGER_TOKEN,
+
+    //{
+    LB_TOKEN,
+    //}
+    RB_TOKEN,
+
+    // ;
+    SC_TOKEN,
 
     //End of Sentence Token
-    EOS_TOK,
+    EOS_TOKEN,
 
     //Assign Token
-    ASSIGN_TOK,
+    ASSIGN_TOKEN,
 
     //Divide Token
-    DIV_TOK,
+    DIV_TOKEN,
     //Multiply Token
 
-    MUL_TOK,
+    MUL_TOKEN,
     //Subtract Token
-    SUB_TOK,
+    SUB_TOKEN,
 
     //Add Token
-    ADD_TOK,
+    ADD_TOKEN,
 
-    // <>
-    NE_TOK,
+    // ~=
+    NE_TOKEN,
 
     // =
-    EQ_TOK,
+    EQ_TOKEN,
 
     // <
-    LT_TOK,
+    LT_TOKEN,
 
     // <=
-    LE_TOK,
+    LE_TOKEN,
 
-    UNTIL_TOK,
+    UNTIL_TOKEN,
 
-    REPEAT_TOK,
+    REPEAT_TOKEN,
 
     // >
-    GT_TOK,
+    GT_TOKEN,
 
     // >=
-    GE_TOK,
+    GE_TOKEN,
 
-    PRINT_TOK,
+    PRINT_TOKEN,
 
     //pointer to table entry
-    ID_TOK,
+    ID_TOKEN,
 
-    DO_TOK,
+    DO_TOKEN,
 
-    WHILE_TOK,
+    WHILE_TOKEN,
 
-    ELSE_TOK,
+    ELSE_TOKEN,
 
-    END_TOK,
+    END_TOKEN,
 
-    THEN_TOK,
+    THEN_TOKEN,
 
-    IF_TOK,
+    IF_TOKEN,
 
     // )
-    RIGHT_PAREN_TOK,
+    RIGHT_PAREN_TOKEN,
 
     // (
-    LEFT_PAREN_TOK,
+    LEFT_PAREN_TOKEN,
 
-    FUNCTION_TOK,
+    FUNCTION_TOKEN,
 
 }
