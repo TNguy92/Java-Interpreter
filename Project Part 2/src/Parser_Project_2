@@ -1,0 +1,121 @@
+/**
+ * CS4380 W01
+ Concepts of Programming Languages
+ Professor: Jose M Garrido
+ Students: Juan E. Tenorio Arzola, Thomas Nguyen, Andrew Shatz
+ */
+
+
+import java.text.ParseException;
+import java.util.*;
+
+public class Parser_Project_2
+{
+    public String stackCreate(String x)
+    {
+        //Stack to make it easy to correct the order of the operators using the 1st in and last out. This will make the expression
+        //string parsed from left to right.
+        Stack<Character> s = new Stack<Character>();
+        //Used StringBUffer so the values that are stored in the string object can't be changed.
+        //Do not want the stack results to get messy
+        StringBuffer resultStack = new StringBuffer();
+
+        int postionString = 0;
+        char currentChar;
+
+        while(postionString < x.length())
+        {
+            //Have to grab the current character first
+            currentChar = x.charAt(postionString);
+            if(currentChar == ('('))
+            {
+                s.push(currentChar);
+            }
+            //Elements on the stack are popped to the postfix string until the LP bracket is reached.
+            else if(currentChar == (')'))
+            {
+                while (!s.empty() && !s.peek().equals('('))
+                {
+                    //Append() adds an item to the top of the stack.
+                    //Pop() grab the item from the top of stack
+                    resultStack.append(s.pop());
+                }
+                if(!s.empty())
+                {
+                    s.pop();
+                }
+            }
+            else if(currentChar == ('/'))
+            {
+                if(!s.empty() && (s.peek().equals('*') || s.peek().equals('/')))
+                {
+                    resultStack.append(s.pop());
+                }
+                s.push(currentChar);
+            }
+            else if(currentChar == ('*'))
+            {
+                //Peek() will just look for the object at the top of the result stack without removing it from
+                //the stack
+                if(!s.empty() && (s.peek().equals('*') || s.peek().equals('/')))
+                {
+                    resultStack.append(s.pop());
+                }
+                s.push(currentChar);
+            }
+            else if(currentChar == ('+'))
+            {
+                if(!s.empty() && (s.peek().equals('*') || s.peek().equals('/')
+                    || s.peek().equals('+') || s.peek().equals('-')))
+                {
+                    resultStack.append(s.pop());
+                }
+                s.push(currentChar);
+            }
+            else if(currentChar == ('-'))
+            {
+                if(!s.empty() && (s.peek().equals('*') || s.peek().equals('/')
+                        || s.peek().equals('+') || s.peek().equals('-')))
+                {
+                    resultStack.append(s.pop());
+                }
+                s.push(currentChar);
+            }
+            else if(currentChar >= '0' && currentChar <= '9')
+            {
+                while (currentChar >= '0' && currentChar <= '9')
+                {
+                    resultStack.append(currentChar);
+                    if (postionString + 1 < x.length())
+                    {
+                        currentChar = x.charAt(postionString++);
+                    }
+                    else
+                    {
+                        //Get out of the While loop when we reach the end of the string.
+                        currentChar = 0;
+                        postionString = x.length();
+                    }
+                }
+                //because the inner while loop for positionString is incremented more than often
+                postionString--;
+            }
+            else
+            {
+                //This will make it a right step inside of the string
+                postionString++;
+                //This will make a space inserted inbetween the numbers
+                resultStack.append(' ');
+            }
+            //check for empty spaces just in case and pop it off
+            while(!s.empty())
+            {
+                resultStack.append(s.pop());
+                resultStack.append(" ");
+            }
+            //This will take away the space that was added in the above while loop
+            resultStack.deleteCharAt(resultStack.length() - 1);
+        }
+        return resultStack.toString();
+    }
+}
