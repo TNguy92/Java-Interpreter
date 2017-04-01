@@ -1,0 +1,72 @@
+
+import java.util.*;
+public class Tree extends Node
+{
+    Tree(char object)
+    {
+        super(object);
+    }
+    boolean isDigit(char currentChar)
+    {
+        if(currentChar >= '0' && currentChar <= '9')
+        {
+            return true;
+        }
+        return false;
+    }
+    boolean isOperator(char currentChar)
+        {
+            if (currentChar == '+' || currentChar == '-' || currentChar == '*' || currentChar == '/')
+            {
+                return true;
+            }
+            return false;
+        }
+        // Utility function to do inorder traversal
+        void inorder(Node traversal)
+        {
+            if (traversal != null)
+            {
+                inorder(traversal.leftTree);
+                System.out.print(traversal.val + " ");
+                inorder(traversal.rightTree);
+            }
+        }
+        // This will return the root of constructed tree for given and this is the postfix expression
+        Node constructTree(char postfix[])
+        {
+            Stack<Node> stack = new Stack();
+            Node tree, tree1, tree2;
+            // Traverse through every character of
+            // input expression
+            for (int i = 0; i < postfix.length; i++) {
+
+                // If operand, simply push into stack
+                if (!isOperator(postfix[i])) {
+                    tree = new Node(postfix[i]);
+                    stack.push(tree);
+                } else // operator
+                {
+                    tree = new Node(postfix[i]);
+
+                    // Pop two top nodes
+                    // Store top
+                    tree1 = stack.pop();// Remove top
+                    tree2 = stack.pop();
+
+                    //  make them children
+                    tree.rightTree = tree1;
+                    tree.leftTree = tree2;
+
+                    // System.out.println(t1 + "" + t2);
+                    // Add this subexpression to stack
+                    stack.push(tree);
+                }
+            }
+            // only element will be root of expression
+            // tree
+            tree = stack.peek();
+            stack.pop();
+            return tree;
+        }
+}
