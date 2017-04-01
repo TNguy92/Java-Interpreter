@@ -1,0 +1,12 @@
+
+public class Node
+{
+        char val;
+        Node leftTree, rightTree;
+        Node(char object)
+        {
+            val = object;
+            leftTree = null;
+            rightTree = null;
+        }
+}
