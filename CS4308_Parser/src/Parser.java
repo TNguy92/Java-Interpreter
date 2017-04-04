@@ -59,11 +59,12 @@ public class Parser
                         {
                             head.add(new Node(next, branch));//**************************May or may not be wrong.
                         }
-                        else
-                        {
+                        //Don't think it's necessary
+                       // else
+                        //{
                             //while may be necessary
-                            next = lex.getNextToken();//Causes it to move to next and see if viable.
-                        }
+                          //  next = lex.getNextToken();//Causes it to move to next and see if viable.
+                       // }
                     }
                 }
             }
@@ -75,7 +76,7 @@ public class Parser
             if (m == "LP")
             {
                 //Call method to see if RP is present
-                if (RP_PRESENT("RP") == true)
+                if (LP_PRESENT("RP") == true)
                 {
                     return true;
 
@@ -87,16 +88,165 @@ public class Parser
                 //Do this for all the possible types
             }
             // print statement no matching token
-            return false;
+            if (m == "RP") {
+                //Call method to see if RP is present
+                if (RP_PRESENT("END") == true) {
+                    return true;
+
+                } else {
+                    return false;
+                }
+            }
+                //Do this for all the possible types
+                if (m == "SM")
+                {
+                    //Call method to see if RP is present
+                    if (SM_PRESENT("ID") == true)
+                    {
+                        return true;
+
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+            }
+
+
+
+
+
+            return false;//Print error here non recongnizable token
         }
 
         //Start of checking if next token type is present.
         //Code a shit ton of these
-        public static boolean RP_PRESENT(String rP)
+        public static boolean RP_PRESENT(String lP)
+        {
+            while (lP != "END")
+            {
+                if (lP == "RP")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public static boolean LP_PRESENT(String rP)
         {
             while (rP != "END")
             {
+                //Scan next token till end some how.
                 if (rP == "RP")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public static boolean PD_PRESENT(String pD) {
+            while (pD != "END") {
+                if (pD == "PD") {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static boolean SM_PRESENT(String sM)
+        {
+            while(sM != "END")
+            {
+                if(sM == "ID")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public static boolean DV_PRESENT(String dV)
+        {
+            while(dV != "END")
+            {
+                if(dV == "DV")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public static boolean MP_PRESENT(String mP)
+        {
+            while(mP != "END")
+            {
+                if(mP == "MP")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public static boolean ST_PRESENT(String sT)
+        {
+            while(sT != "END")
+            {
+                if(sT == "ST")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public static boolean NUM_PRESENT(String nUM)
+        {
+            while(nUM != "END")
+            {
+                if(nUM == "NUM")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public static boolean ID_PRESENT(String iD)
+        {
+            while(iD != "END")
+            {
+                if((iD == "ID" )|| (iD == "SM" ) || (iD == "DV" )||(iD == "ST") || (iD == "MP" ))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public static boolean EQ_PRESENT(String eQ)
+        {
+            while(eQ != "END")
+            {
+                if(eQ == "EQ")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public static boolean AS_PRESENT(String aS)
+        {
+            while(aS != "END")
+            {
+                if(aS == "AS")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public static boolean EOS_PRESENT(String eOS)
+        {
+            while(eOS != "END")
+            {
+                if(eOS == "EOS")
                 {
                     return true;
                 }
